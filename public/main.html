@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main of Compnents</title>        
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+
+</head>
+<body>
+    <div id="com">
+        <div>com1========</div>
+
+        <com-1 :hello_com1="text1"></com-1>
+        <input v-model="text1" type="text" name="1" id="11">
+        <label for="">{{text1}}</label>
+        <!-- <com-1 hello_com1="parent_value1"></com-1> -->
+        <div>com2========</div>
+        <com-2 :items="parent_items"></com-2>
+        <div>com3========</div>
+        <com-3 v-model="md"></com-3>
+        <div>{{md}}</div>
+        <com-slot>
+            <template  scope="props1">
+                <div><button>-{{props1.slot_msg}}-</button></div>
+            </template>
+        </com-slot>
+        <com-inline inline-template>
+            <div>
+            <h1>{{inline_data}}</h1>
+            <h2>{{inline_data}}</h2>
+            <h3>{{inline_data}}</h3>
+            <h4>{{inline_data}}</h4>
+            </div>
+
+        </com-inline>
+        <component :is="current_com"></component>
+        <lazy-com></lazy-com>
+    </div>
+    
+<script src="./src/com1.js"></script>
+</body>
+</html>

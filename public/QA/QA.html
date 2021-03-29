@@ -1,0 +1,34 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <page v-for="page,index in pages" v-show="current==index" :key="index">
+            <template v-slot:pagetitle>
+                <pagetitle :page="page" :pageno="index+1"></pagetitle>
+            </template>
+            <template v-slot:pagecontent>
+                <pagecontent :page="page"></pagecontent>
+            </template>
+            <template v-slot:pagebottom>
+                <pagebottom :page="page" :count="pages.length" :pageno="index+1" v-on:handle="handle">
+                </pagebottom>
+            </template>
+        </page>
+
+    </div>
+    <script type="text/javascript" src="content.js"></script>
+    <script type="text/javascript" src="button.js"></script>
+    <script type="module" src="page.js"></script>
+    <script type="module" src="index.js"></script>
+</body>
+
+</html>

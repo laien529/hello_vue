@@ -1,0 +1,24 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>custom component</title>
+
+</head>
+
+<body>
+
+    <div id="cstm">
+        <input-custom v-model="value" :val="value" :max=100 :min=0 @handle="handle" :step=10></input-custom>
+        <div>{{value}}</div>
+    </div>
+    <!-- <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.min.js"></script> -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="module" src="./src/input_custom.js"></script>
+    <script type="module" src="./src/index_custom.js"></script>
+
+</body>
+
+</html>

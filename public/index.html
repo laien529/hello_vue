@@ -4,14 +4,125 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="icon" href="favicon.ico">
+    <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+    <!-- <script type="text/javascript" src="../src/main.js"></script> -->
+
   </head>
   <body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
-    <div id="app"></div>
+
+    <div id="app">
+    </div>
+    <div id="timer">
+      <h1>{{date | format | prefix('Time is ...')}}</h1>
+      <div v-html='link'>
+      </div>
+      <button v-on:click='hideOrShow'>click</button>
+      <button v-on:click='changeValue'>changeArray1</button>
+      <input v-model="inputtext" type="text" name="" id="">
+      <div>{{inputtext}}</div>
+      <input @input="inputAction" type="text" name="" id="">
+      <div v-if="show">Show Or hidden</div>
+      <div v-for="n in 10">{{n}}</div>
+      <div v-for="n,key,index in obj">{{key}}-{{n}}</div>
+      <div v-for="n,key,index in books">{{n.price }}-{{n.name}}</div>
+
+    </div>
     <!-- built files will be auto injected -->
+    <!-- <App></App> -->
+    <script type="text/javascript">
+        function padDate(value){
+          return (value < 10) ? '0' + value : value;
+        }
+        var vm = new Vue({
+            el:'#timer',
+            data: {
+              date: new Date(),
+              link:"<H1><font color='red'>link</font></H1>",
+              show:false,
+              obj:{name:'cedric', age: 25, career:'App Enginner'},
+              books:[
+                {
+                  name:'Vue.js 实战',
+                  price:100
+                },
+                {
+                  name: 'React.js 实战',
+                  price: 110
+                },
+                {
+                  name: 'Augular 实战',
+                  price: 120
+                },
+                {
+                  name: 'Go 实战',
+                  price: 130
+                },
+                {
+                  name: 'flutter 实战',
+                  price: 140
+                },
+                {
+                  name: 'CSS 实战',
+                  price: 150
+                }
+              ],
+              inputtext:""
+            },
+            methods: {
+              hideOrShow:function(event){
+                console.log(event);
+                this.show = !this.show;
+              },
+              changeValue:function(){
+                // console.log(this.changeArray.length)
+                return this.changeArray;
+              },
+              inputAction:function(e){
+                this.inputtext = e.target.value
+              }
+            },
+            computed:{
+              changeArray: function () {
+                // Vue.set(vm.books, 3, {
+                //     name:'绝版典藏',
+                //     price:10000
+                // });
+                this.books.splice(3, 1, {
+                  name: '绝版典藏',
+                  price: 10000
+                })
+              }
+            },
+            filters:{
+              format:function(value) {
+                var orgDate = new Date(value);
+                return padDate(orgDate.getHours())+':'+ padDate(orgDate.getMinutes()) + ':' + padDate(orgDate.getSeconds());
+              },
+              prefix:function(value, pre){
+                return pre + value
+              }
+            },
+            mounted: function () {
+              return;
+              var _this = this;
+              this.timer = setInterval(function () {
+                _this.date = new Date;
+                console.log(_this.date)
+              }, 1000
+              )
+            }
+        });
+        vm.books.filter(function(value){
+          console.log(value.name+'~')
+          return value.name === 'Go 实战';
+        });
+    </script>
   </body>
 </html>
+ 

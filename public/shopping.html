@@ -1,0 +1,85 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>shoppingcart</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+
+</head>
+<body>
+    <div id="shopping" v-cloak>
+        <template v-if="list.length">
+            <div>
+                <div v-for='data in list'>
+                    <span>{{data.type}}</span>
+                    <table>
+                        <thead>
+                            <th></th>
+                            <th>名称</th>
+                            <th>数量</th>
+                            <th>单价</th>
+                            <th>操作</th>
+                            <th>选择</th>
+                        </thead>
+                    
+                        <tbody v-for='item,index in data.items'>
+                            <td>{{item.name}}</td>
+                            <td><button @click='add(item)'>+</button> {{item.count}} <button @click='remove(item)'>-</button></td>
+                            <td>{{item.price}}</td>
+                            <td><button>移除</button></td>
+                            <td><input type="checkbox" :key='index' v-model="checkList" :value='item'></td>
+                        </tbody>
+                    </table>
+                    <P></P>
+                </div>
+                
+                <div style="width: 50%;">总价：{{total}}</div><div style="width: 50%;"><input type="checkbox" name="" @click="checkAll">全选</div>
+                <div>
+                    <input type="radio" name="" id="1" :value="1" v-model="selected">
+                    <label for="1">1</label>
+                    <input type="radio" name="" id="2" :value="2" v-model="selected">
+                    <label for="2">2</label>
+
+                    <input type="radio" name="" id="3" :value="3" v-model="selected">
+                    <label for="3">3</label>
+
+                    <div v-cloak>{{ selected }}</div>
+                </div>
+                <div>
+                    <select v-model="options" name="" id="1" multiple>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5 </option>
+
+                    </select>
+                    <label for="">{{options}}</label>
+                </div>
+                <div>
+                    <select  v-model="selectedDrink" name="" id="drink" multiple>
+                        <option v-for="drink in drinkings" :value="drink">{{drink}}</option>
+                    </select>
+                    <label for="aaa">{{selectedDrink}}</label>
+                </div>
+                <div>
+                    <input v-model="isSelected" type="radio" name="cscsc" id="rrrr" :value="selectedFoods">
+                    <p>{{isSelected}}</p>
+                    <p>{{selectedFoods}}</p>
+
+                </div>
+                <div>
+                    <label for="">bind</label>
+                    <input v-model="tg" type="checkbox" name="" id="cs" :true-value="value1" :false-value="value2" >
+                    <label for="">{{tg}}</label>
+                </div>
+            </div>
+        </template>
+        <div v-else><h1>购物车为空</h1></div>
+    </div>
+<script type="module" src="./src/index.js"></script>
+<style src="./src/style.css"></style>
+
+</body>
+</html>
