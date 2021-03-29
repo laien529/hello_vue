@@ -24,7 +24,7 @@ Vue.component('pagecontent', {
     }
 })
 Vue.component('pagebottom', {
-    template: "<div><button v-show='getStatus().submit' id='submit' @click=\"sendmsg('submit    ')\">提交</button><button id='pre' @click=\"sendmsg('pre')\" v-show='getStatus().pre'>上一步</button><button id='next' @click=\"sendmsg('next')\"v-show='getStatus().next'>下一步</button><button id='reset' v-show='getStatus().reset' @click=\"sendmsg('reset')\">重置</button></div>",
+    template: "<div><button v-show='getStatus().submit' id='submit' @click=\"sendmsg('submit')\">提交</button><button id='pre' @click=\"sendmsg('pre')\" v-show='getStatus().pre'>上一步</button><button id='next' @click=\"sendmsg('next')\"v-show='getStatus().next'>下一步</button><button id='reset' v-show='getStatus().reset' @click=\"sendmsg('reset')\">重置</button></div>",
     props: {
         pageno: Number,
         page: Object,
@@ -38,7 +38,8 @@ Vue.component('pagebottom', {
                 next: false,
                 reset: true,
                 submit: false
-            }
+            },
+            inputdata:[]
         }
     },
     methods: {
@@ -46,19 +47,56 @@ Vue.component('pagebottom', {
             this.$emit("handle", "pre");
         },
         next: function () {
-            console.log("cscsc")
+
+            console.log(this.page.type)
+            console.log(this.inputdata.count)
+
+            if(this.page.type == "one") {
+                console.log(this.inputdata.count)
+                if (this.inputdata.count == 0){
+                    return;
+                }
+            }
+            if(this.page.type == "muti") {
+                return;
+
+            }
+            if(this.page.type == "input") {
+                return;
+
+            }
             this.$emit("handle", "next");
 
         },
         reset: function () {
-            this.$emit("handle", "pre");
+            this.inputdata = []
+            this.$emit("handle", "reset");
         },
         submit: function () {
-            console.log("cscsc")
-            this.$emit("handle", "next");
+            this.$emit("handle", "submit");
 
         },
         sendmsg: function (val) {
+            if(val == "next") {
+                if(this.page.type == "one") {
+                    console.log(this.inputdata.length)
+                    if (this.inputdata.length == 0){
+                        return;
+                    }
+                } else if (this.page.type == "muti") {
+                    console.log(this.inputdata.length)
+                    if (this.inputdata.length < 2){
+                        return;
+                    }
+                }
+            if(this.page.type == "muti") {
+                return;
+
+            }
+            if(this.page.type == "input") {
+                return;
+            }
+            }
             this.$emit("handle", val);
 
         },
@@ -86,6 +124,9 @@ Vue.component('pagebottom', {
             // console.log(this.status)
 
             return this.status
+        },
+        setinput: function(val) {
+            console.log(val)
         }
     },
 })

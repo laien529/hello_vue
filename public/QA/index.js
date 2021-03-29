@@ -19,6 +19,7 @@ var vm = new Vue({
             }
         ],
         current: 0,
+        forminput:[]
 
     },
     methods: {
@@ -33,7 +34,7 @@ var vm = new Vue({
         },
         reset: function () {
             console.log('reset')
-
+            this.forminput = []
         },
         submit: function () {
             console.log('submit')
